@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "paths": {
+      // Configuration directe de l'alias relative à la racine du projet
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*"]
+}

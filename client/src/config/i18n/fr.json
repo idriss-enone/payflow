@@ -1,0 +1,36 @@
+{
+  "common": {
+    "loading": "Traitement réseau en cours...",
+    "error_generic": "Une erreur inattendue est survenue.",
+    "mock_env": "ENVIRONNEMENT DE SIMULATION",
+    "logout": "Déconnexion",
+    "show": "Afficher",
+    "hide": "Masquer",
+    "required_mark": "champ requis"
+  },
+  "auth": {
+    "checking": "Vérification de la session...",
+    "register_subtitle": "Crée ton compte PayFlow",
+    "login_subtitle": "Connecte-toi à ton portefeuille",
+    "subtitle": "Crée ton compte PayFlow",
+    "login": "Connexion",
+    "signup": "Créer un compte",
+    "fullname": "Nom complet",
+    "phone": "Numéro de téléphone",
+    "pin": "Code PIN (4 chiffres)",
+    "pin_confirm": "Confirmer le code PIN",
+    "btn_login": "Se connecter à PayFlow",
+    "btn_signup": "Créer mon portefeuille",
+    "no_account": "Pas encore de compte ?",
+    "switch_signup": " Créer un compte",
+    "already_have_account": "Déjà inscrit ?",
+    "switch_login": "Se connecter",
+    "error_invalid_credentials": "Numéro de téléphone ou code PIN incorrect.",
+    "error_phone_exists": "Ce numéro de téléphone est déjà associé à un portefeuille actif.",
+    "error_incomplete": "Veuillez remplir l'ensemble des champs requis.",
+    "pin_mismatch_error": "Les deux codes PIN ne correspondent pas.",
+    "validation_phone_short": "Numéro de téléphone incomplet (9 chiffres minimum).",
+    "validation_pin_format": "Le code PIN doit contenir exactement 4 chiffres.",
+    "validation_name_short": "Merci d'indiquer un nom valide."
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "common": {
+    "loading": "Network processing in progress...",
+    "error_generic": "An unexpected error occurred.",
+    "mock_env": "MOCK ENVIRONMENT",
+    "logout": "Logout",
+    "show": "Show",
+    "hide": "Hide",
+    "required_mark": "required field"
+  },
+  "auth": {
+    "checking": "Checking session...",
+    "subtitle": "Create your PayFlow account",
+    "register_subtitle": "Create your PayFlow account",
+    "login_subtitle": "Connect to your wallet",
+    "login": "Sign In",
+    "signup": "Create Account",
+    "fullname": "Full Name",
+    "phone": "Phone Number",
+    "pin": "PIN Code (4 digits)",
+    "pin_confirm": "Confirm PIN Code",
+    "btn_login": "Sign In to PayFlow",
+    "btn_signup": "Create my Wallet",
+    "no_account": "Don't have an account?",
+    "switch_signup": "Create one",
+    "already_have_account": "Already registered?",
+    "switch_login": "Sign In",
+    "error_invalid_credentials": "Incorrect phone number or PIN code.",
+    "error_phone_exists": "This phone number is already linked to an active wallet.",
+    "error_incomplete": "Please fill in all required fields.",
+    "pin_mismatch_error": "The two PIN codes do not match.",
+    "validation_phone_short": "Incomplete phone number (9 digits minimum).",
+    "validation_pin_format": "The PIN code must contain exactly 4 digits.",
+    "validation_name_short": "Please enter a valid name."
+  }
+}

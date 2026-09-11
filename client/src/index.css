@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&family=Fraunces:wght@500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Thème B2C : Portefeuille Électronique (Teintes Émeraudes) */
+  --color-pf-bg: #eff5f1;
+  --color-pf-surface: #ffffff;
+  --color-pf-surface-alt: #e4eee8;
+  --color-pf-border: #dbe6df;
+  --color-pf-ink: #16302a;
+  --color-pf-ink-dim: #5c7a70;
+  --color-pf-ink-faint: #8aa69b;
+  --color-pf-teal: #1f7a6c;
+  --color-pf-teal-dark: #113a33;
+  --color-pf-coral: #dd6449;
+  --color-pf-coral-dim: rgba(221, 100, 73, 0.12);
+  --color-pf-teal-dim: rgba(31, 122, 108, 0.12);
+  --color-pf-sun: #dda23f;
+  --color-pf-sun-dim: rgba(221, 162, 63, 0.14);
+
+  /* Thème B2B : Switch d'Agrégation (Teintes Cobalt / Saphir / Or) */
+  --color-ifr-bg: #101c2c;
+  --color-ifr-surface: #17293e;
+  --color-ifr-border: rgba(242, 237, 225, 0.1);
+  --color-ifr-ink: #eee7d8;
+  --color-ifr-dim: #93a6bd;
+  --color-ifr-gold: #e3a73f;
+  --color-ifr-gold-dim: rgba(227, 167, 63, 0.14);
+  --color-ifr-leaf: #3e9c6e;
+  --color-ifr-leaf-dim: rgba(62, 156, 110, 0.16);
+  --color-ifr-amber: #d6b24a;
+  --color-ifr-clay: #c1553a;
+  --color-ifr-clay-dim: rgba(193, 85, 58, 0.16);
+
+  --font-serif: "Fraunces", serif;
+  --font-mono: "Space Mono", monospace;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-pf-bg);
+    color: var(--color-pf-ink);
+    font-family: "Manrope", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* Classes transversales d'infrastructure */
+.pf-panel {
+  background-color: var(--color-pf-surface);
+  border: 1px solid var(--color-pf-border);
+  border-radius: 14px;
+}
+
+.pf-field-input {
+  border: 1px solid var(--color-pf-border);
+  background-color: var(--color-pf-bg);
+  border-radius: 9px;
+  padding: 11px 12px;
+  font-size: 14px;
+  color: var(--color-pf-ink);
+  width: 100%;
+  transition: all 0.15s ease-in-out;
+}
+
+.pf-field-input:focus {
+  outline: 2px solid var(--color-pf-teal);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+
+.animate-fade-in {
+  animation: pfFade 0.25s ease-out forwards;
+}
+
+@keyframes pfFade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
