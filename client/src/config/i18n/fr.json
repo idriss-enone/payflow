@@ -6,7 +6,9 @@
     "logout": "Déconnexion",
     "show": "Afficher",
     "hide": "Masquer",
-    "required_mark": "champ requis"
+    "required_mark": "champ requis",
+    "language_switcher": "Changer de langue",
+    "close": "Fermer"
   },
   "auth": {
     "checking": "Vérification de la session...",
@@ -32,5 +34,41 @@
     "validation_phone_short": "Numéro de téléphone incomplet (9 chiffres minimum).",
     "validation_pin_format": "Le code PIN doit contenir exactement 4 chiffres.",
     "validation_name_short": "Merci d'indiquer un nom valide."
+  },
+  "wallet": {
+    "nav_home": "Accueil",
+    "nav_label": "Navigation du portefeuille",
+    "toggle_menu": "Ouvrir le menu",
+    "action_transfer": "Envoyer",
+    "action_bill": "Payer une facture",
+    "action_topup": "Recharger",
+    "action_withdrawal": "Retirer",
+    "see_all": "Historique",
+    "balance_label": "Solde disponible",
+    "recent_activity": "Activité récente",
+    "no_activity": "Aucune activité pour le moment.",
+    "kind_transfer_in": "Reçu de",
+    "kind_transfer_out": "Envoyé à",
+    "kind_bill": "Facture —",
+    "kind_topup": "Rechargé via",
+    "kind_withdrawal": "Retiré vers",
+    "today": "Aujourd'hui",
+    "yesterday": "Hier",
+
+    "transfer_title": "À qui envoyer ?",
+    "recipient_phone": "Numéro du destinataire",
+    "amount": "Montant (FCFA)",
+    "note_optional": "Note (facultatif)",
+    "btn_transfer": "Envoyer",
+    "insufficient_funds": "Solde insuffisant.",
+    "error_recipient_not_found": "Aucun compte PayFlow n'est associé à ce numéro.",
+    "error_self_transfer": "Vous ne pouvez pas envoyez de l'argent à votre numéro.",
+    "error_invalid_amount": "Merci d'indiquer un montant valide.",
+    "error_reference_required": "Merci d'indiquer une référence.",
+
+    "status_success": "Réussie",
+    "status_failed": "Echouée",
+    "status_pending": "En attente",
+    "status_processing": "En cours"
   }
 }

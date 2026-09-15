@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
-import { useTranslation } from "@/hooks/useTranslation";
 import { validateRegisterForm, hasErrors } from "../utils/validators";
 
 export function useRegisterForm() {
     const { register } = useAuth();
-    const { t } = useTranslation();
     const navigate = useNavigate();
 
     const [form, setForm] = useState({ name: "", phone: "", pin: "", pinConfirmation: "" });
@@ -32,7 +30,7 @@ export function useRegisterForm() {
             await register({ name: form.name, phone: form.phone, pin: form.pin });
             navigate("/dashboard");
         } catch (err) {
-            setFormError(t(err.message));
+            setFormError(err.message);
         } finally {
             setIsSubmitting(false);
         }

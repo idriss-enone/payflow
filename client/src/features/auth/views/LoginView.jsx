@@ -38,7 +38,7 @@ export default function LoginView() {
             role="alert"
             className="p-3.5 mb-4 text-xs font-semibold border rounded-lg bg-pf-coral-dim text-pf-coral border-pf-coral/15 leading-relaxed"
           >
-            {formError}
+            {t(formError)}
           </div>
         )}
 

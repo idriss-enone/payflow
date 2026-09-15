@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
-import { useTranslation } from "@/hooks/useTranslation";
 import { validateLoginForm, hasErrors } from "../utils/validators";
 
 // Porte tout ce qui n'est pas du rendu : champs, erreurs par champ, erreur
 // globale, et soumission. La vue n'a plus qu'à afficher ce que ce hook expose.
 export function useLoginForm() {
   const { login } = useAuth();
-  const { t } = useTranslation();
   const navigate = useNavigate();
   const [phone, setPhone] = useState("");
   const [pin, setPin] = useState("");
@@ -31,8 +29,7 @@ export function useLoginForm() {
       await login(phone, pin);
       navigate("/dashboard");
     } catch (err) {
-      console.log(t(err.message))
-      setFormError(t(err.message));
+      setFormError(err.message);
     } finally {
       setIsSubmitting(false);
     }

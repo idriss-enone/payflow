@@ -6,8 +6,17 @@ import { UserPlus, Loader2 } from "lucide-react";
 
 export default function RegisterView() {
   const { t } = useTranslation();
-  const { form, setName, setPhone, setPin, setPinConfirmation, fieldErrors, formError, isSubmitting, handleSubmit } =
-    useRegisterForm();
+  const {
+    form,
+    setName,
+    setPhone,
+    setPin,
+    setPinConfirmation,
+    fieldErrors,
+    formError,
+    isSubmitting,
+    handleSubmit,
+  } = useRegisterForm();
 
   return (
     <div>
@@ -26,74 +35,82 @@ export default function RegisterView() {
         {t("auth.register_subtitle")}
       </p>
       <div className="animate-fade-in">
-      {formError && (
-        <div
-          role="alert"
-          className="p-3.5 mb-4 text-xs font-semibold border rounded-lg bg-pf-coral-dim text-pf-coral border-pf-coral/15 leading-relaxed"
+        {formError && (
+          <div
+            role="alert"
+            className="p-3.5 mb-4 text-xs font-semibold border rounded-lg bg-pf-coral-dim text-pf-coral border-pf-coral/15 leading-relaxed"
+          >
+            {t(formError)}
+          </div>
+        )}
+
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-4"
+          noValidate
         >
-          {formError}
-        </div>
-      )}
+          <FormInput
+            label={t("auth.fullname")}
+            placeholder="Ex. Adèle Kamga"
+            value={form.name}
+            onChange={(e) => setName(e.target.value)}
+            error={fieldErrors.name}
+            disabled={isSubmitting}
+            required
+          />
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
-        <FormInput
-          label={t("auth.fullname")}
-          placeholder="Ex. Adèle Kamga"
-          value={form.name}
-          onChange={(e) => setName(e.target.value)}
-          error={fieldErrors.name}
-          disabled={isSubmitting}
-          required
-        />
+          <FormInput
+            label={t("auth.phone")}
+            placeholder="Ex. 670000001"
+            value={form.phone}
+            onChange={(e) => setPhone(e.target.value)}
+            error={fieldErrors.phone}
+            disabled={isSubmitting}
+            required
+          />
 
-        <FormInput
-          label={t("auth.phone")}
-          placeholder="Ex. 670000001"
-          value={form.phone}
-          onChange={(e) => setPhone(e.target.value)}
-          error={fieldErrors.phone}
-          disabled={isSubmitting}
-          required
-        />
+          <FormInput
+            label={t("auth.pin")}
+            type="password"
+            placeholder="••••"
+            maxLength={4}
+            inputMode="numeric"
+            value={form.pin}
+            onChange={(e) => setPin(e.target.value)}
+            error={fieldErrors.pin}
+            disabled={isSubmitting}
+            required
+          />
 
-        <FormInput
-          label={t("auth.pin")}
-          type="password"
-          placeholder="••••"
-          maxLength={4}
-          inputMode="numeric"
-          value={form.pin}
-          onChange={(e) => setPin(e.target.value)}
-          error={fieldErrors.pin}
-          disabled={isSubmitting}
-          required
-        />
+          <FormInput
+            label={t("auth.pin_confirm")}
+            type="password"
+            placeholder="••••"
+            maxLength={4}
+            inputMode="numeric"
+            value={form.pinConfirmation}
+            onChange={(e) => setPinConfirmation(e.target.value)}
+            error={fieldErrors.pinConfirmation}
+            disabled={isSubmitting}
+            required
+          />
 
-        <FormInput
-          label={t("auth.pin_confirm")}
-          type="password"
-          placeholder="••••"
-          maxLength={4}
-          inputMode="numeric"
-          value={form.pinConfirmation}
-          onChange={(e) => setPinConfirmation(e.target.value)}
-          error={fieldErrors.pinConfirmation}
-          disabled={isSubmitting}
-          required
-        />
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            aria-busy={isSubmitting}
+            className="flex items-center justify-center gap-2 w-full bg-pf-teal-dark text-white font-bold py-3 px-4 rounded-xl text-xs tracking-wide cursor-pointer transition-colors hover:bg-pf-teal disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+          >
+            {isSubmitting ? (
+              <Loader2 size={16} className="animate-spin" aria-hidden="true" />
+            ) : (
+              <UserPlus size={16} aria-hidden="true" />
+            )}
+            {isSubmitting ? t("common.loading") : t("auth.btn_signup")}
+          </button>
+        </form>
 
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          aria-busy={isSubmitting}
-          className="flex items-center justify-center gap-2 w-full bg-pf-teal-dark text-white font-bold py-3 px-4 rounded-xl text-xs tracking-wide cursor-pointer transition-colors hover:bg-pf-teal disabled:opacity-50 disabled:cursor-not-allowed mt-2"
-        >
-          {isSubmitting ? <Loader2 size={16} className="animate-spin" aria-hidden="true" /> : <UserPlus size={16} aria-hidden="true" />}
-          {isSubmitting ? t("common.loading") : t("auth.btn_signup")}
-        </button>
-      </form>
-
-      <div className="text-center text-xs font-semibold text-pf-ink-dim mt-5">
+        <div className="text-center text-xs font-semibold text-pf-ink-dim mt-5">
           {t("auth.already_have_account")}{" "}
           <Link
             to="/login"
@@ -102,8 +119,7 @@ export default function RegisterView() {
             {t("auth.switch_login")}
           </Link>
         </div>
+      </div>
     </div>
-    </div>
-    
   );
 }

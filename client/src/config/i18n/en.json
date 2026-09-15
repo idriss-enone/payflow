@@ -6,7 +6,9 @@
     "logout": "Logout",
     "show": "Show",
     "hide": "Hide",
-    "required_mark": "required field"
+    "required_mark": "required field",
+    "language_switcher": "Change language",
+    "close": "Close"
   },
   "auth": {
     "checking": "Checking session...",
@@ -32,5 +34,41 @@
     "validation_phone_short": "Incomplete phone number (9 digits minimum).",
     "validation_pin_format": "The PIN code must contain exactly 4 digits.",
     "validation_name_short": "Please enter a valid name."
+  },
+  "wallet": {
+    "nav_home": "Home",
+    "nav_label": "Wallet navigation",
+    "toggle_menu": "Open menu",
+    "action_transfer": "Send",
+    "action_bill": "Pay a bill",
+    "action_topup": "Top up",
+    "action_withdrawal": "Withdraw",
+    "see_all": "History",
+    "balance_label": "Available balance",
+    "recent_activity": "Recent activity",
+    "no_activity": "No activity yet.",
+    "kind_transfer_in": "Received from",
+    "kind_transfer_out": "Sent to",
+    "kind_bill": "Bill —",
+    "kind_topup": "Topped up via",
+    "kind_withdrawal": "Withdrawn to",
+    "today": "Today",
+    "yesterday": "Yesterday",
+
+    "transfer_title": "Who do you want to send to?",
+    "recipient_phone": "Recipient's phone number",
+    "amount": "Amount (FCFA)",
+    "note_optional": "Note (optional)",
+    "btn_transfer": "Send",
+    "insufficient_funds": "Insufficient balance.",
+    "error_recipient_not_found": "No PayFlow account is linked to this number.",
+    "error_self_transfer": "You can't send money to your own number.",
+    "error_invalid_amount": "Please enter a valid amount.",
+    "error_reference_required": "Please enter a reference.",
+
+    "status_success": "Success",
+    "status_failed": "Failed",
+    "status_pending": "Pending",
+    "status_processing": "Processing"
   }
 }
