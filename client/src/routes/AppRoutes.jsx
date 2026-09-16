@@ -9,6 +9,7 @@ import RegisterView from "@/features/auth/views/RegisterView";
 import TransferView from "@/features/wallet/views/TransferView";
 import BillPaymentView from "@/features/wallet/views/BillPaymentView";
 import TopUpView from "@/features/wallet/views/TopUpView";
+import WithdrawalView from "@/features/wallet/views/WithdrawalView";
 
 import MainLayout from "@/layouts/MainLayout";
 import { WalletProvider } from "@/features/wallet/context/WalletProvider";
@@ -53,11 +54,7 @@ export default function AppRoutes() {
           />
           <Route
             path="withdraw"
-            element={
-              <div className="text-sm text-pf-ink-dim">
-                Module Retrait (À venir)
-              </div>
-            }
+            element={<WithdrawalView />}
           />
           <Route
             path="history"

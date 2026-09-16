@@ -91,6 +91,11 @@ export function WalletProvider({ children }) {
     [runAction, user],
   );
 
+   const withdraw = useCallback(
+    (amount, channelName) => runAction(() => walletService.withdraw({ userId: user.id, amount, channelName })),
+    [runAction, user]
+  );
+
   const value = useMemo(
     () => ({
       balance,
@@ -100,8 +105,9 @@ export function WalletProvider({ children }) {
       transfer,
       payBill,
       topUp,
+      withdraw
     }),
-    [balance, transactions, isLoading, error, transfer, payBill, topUp],
+    [balance, transactions, isLoading, error, transfer, payBill, topUp,withdraw],
   );
 
   return (

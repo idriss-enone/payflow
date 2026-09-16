@@ -123,6 +123,22 @@ export function installWalletMock(mock) {
 
         const tx = recordTransaction({ userId, kind: TX_KIND.TOPUP, amount, channelName, status: TX_STATUS.SUCCESS, });
         return [200, { balance: user.balance, transaction: tx }];
-    })
+    });
+
+    mock.onPost("/wallet/withdrawal").reply(async (config) => {
+        await delay(WALLET_DELAY.WITHDRAWAL);
+        const { userId, amount, channelName } = JSON.parse(config.data);
+
+        const users = getUsers();
+        const user = users.find((u) => u.id === userId);
+        if (!user) return [404, { message: WALLET_ERRORS.GENERIC }];
+        if (amount > user.balance) return [422, { message: WALLET_ERRORS.INSUFFICIENT_FUNDS }];
+
+        user.balance -= amount;
+        saveUsers(users);
+
+        const tx = recordTransaction({ userId, kind: TX_KIND.WITHDRAWAL, amount: -amount, channelName, status: TX_STATUS.SUCCESS, });
+        return [200, { balance: user.balance, transaction: tx }];
+    });
 
 }

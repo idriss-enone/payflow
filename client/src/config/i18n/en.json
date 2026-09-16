@@ -56,7 +56,12 @@
     "btn_topup": "Top up",
 
     "kind_topup": "Topped up via",
+
     "kind_withdrawal": "Withdrawn to",
+    "withdrawal_title": "Withdraw funds",
+    "destination_label": "Destination",
+    "btn_withdrawal": "Withdraw",
+
     "reference_label": "Invoice reference",
     "amount_label": "Amount to pay (FCFA)",
     "today": "Today",
