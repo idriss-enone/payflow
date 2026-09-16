@@ -32,6 +32,15 @@ const walletService = {
             throw new Error(extractErrorMessage(error), { cause: error });
         }
     },
+
+    async payBill(payload) {
+        try {
+            const { data } = await httpClient.post("/wallet/bill-payment", payload);
+            return data;
+        } catch (error) {
+            throw new Error(extractErrorMessage(error), { cause: error });
+        }
+    },
 }
 
 export default walletService;

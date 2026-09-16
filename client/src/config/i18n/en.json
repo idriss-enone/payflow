@@ -52,6 +52,8 @@
     "kind_bill": "Bill —",
     "kind_topup": "Topped up via",
     "kind_withdrawal": "Withdrawn to",
+    "reference_label": "Invoice reference",
+    "amount_label": "Amount to pay (FCFA)",
     "today": "Today",
     "yesterday": "Yesterday",
 
@@ -60,6 +62,9 @@
     "amount": "Amount (FCFA)",
     "note_optional": "Note (optional)",
     "btn_transfer": "Send",
+    "bill_title": "Choose the provider",
+    "bill_subtitle": "Payment information",
+    "btn_pay_bill": "Pay bill",
     "insufficient_funds": "Insufficient balance.",
     "error_recipient_not_found": "No PayFlow account is linked to this number.",
     "error_self_transfer": "You can't send money to your own number.",

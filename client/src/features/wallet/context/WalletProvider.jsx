@@ -27,7 +27,7 @@ export function WalletProvider({ children }) {
 
   useEffect(() => {
     if (!user) return;
-  
+
     async function fetchData() {
       setIsLoading(true);
       setError("");
@@ -50,14 +50,14 @@ export function WalletProvider({ children }) {
     refresh();
   }, [refresh]);*/
 
-  /*const runAction = useCallback(async (serviceCall) => {
+  const runAction = useCallback(async (serviceCall) => {
     const result = await serviceCall();
     setBalance(result.balance);
     setTransactions((prev) => [result.transaction, ...prev].slice(0, 20));
     return result.transaction;
-  }, []);*/
+  }, []);
 
-  /*const transfer = useCallback(
+  const transfer = useCallback(
     (recipientPhone, amount, note) =>
       runAction(() =>
         walletService.transfer({
@@ -68,26 +68,17 @@ export function WalletProvider({ children }) {
         }),
       ),
     [runAction, user],
-  );*/
+  );
 
-  const transfer = useCallback(
-    async (recipientPhone, amount, note) => {
-      const result = await walletService.transfer({
-        userId: user.id,
-        recipientPhone,
-        amount,
-        note,
-      });
-      setBalance(result.balance);
-      setTransactions((prev) => [result.transaction, ...prev]);
-      return result.transaction;
-    },
-    [user],
+  const payBill = useCallback(
+    (billerName, reference, amount) =>
+      runAction(() => walletService.payBill({ userId: user.id, billerName, reference, amount })),
+    [runAction, user]
   );
 
   const value = useMemo(
-    () => ({ balance, transactions, isLoading, error, transfer }),
-    [balance, transactions, isLoading, error, transfer],
+    () => ({ balance, transactions, isLoading, error, transfer,payBill }),
+    [balance, transactions, isLoading, error, transfer,payBill],
   );
 
   return (

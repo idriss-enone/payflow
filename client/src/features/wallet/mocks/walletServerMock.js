@@ -87,4 +87,26 @@ export function installWalletMock(mock) {
         return [200, { balance: sender.balance, transaction: senderTx }];
     })
 
+    mock.onPost("/wallet/bill-payment").reply(async (config) => {
+        await delay(WALLET_DELAY.BILL);
+        const { userId, billerName, reference, amount } = JSON.parse(config.data);
+
+        const users = getUsers();
+        const user = users.find((u) => u.id === userId);
+        if (!user) return [404, { message: WALLET_ERRORS.GENERIC }];
+        if (amount > user.balance) return [422, { message: WALLET_ERRORS.INSUFFICIENT_FUNDS }];
+
+        user.balance -= amount;
+        saveUsers(users);
+
+        const tx = recordTransaction({
+            userId,
+            kind: TX_KIND.BILL,
+            amount: -amount,
+            billerName, reference,
+            status: TX_STATUS.SUCCESS,
+        });
+        return [200, { balance: user.balance, transaction: tx }];
+    });
+
 }

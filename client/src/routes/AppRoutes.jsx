@@ -7,6 +7,7 @@ import LoginView from "@/features/auth/views/LoginView";
 import RegisterView from "@/features/auth/views/RegisterView";
 
 import TransferView from "@/features/wallet/views/TransferView";
+import BillPaymentView from "@/features/wallet/views/BillPaymentView";
 
 import MainLayout from "@/layouts/MainLayout";
 import { WalletProvider } from "@/features/wallet/context/WalletProvider";
@@ -42,10 +43,7 @@ export default function AppRoutes() {
           />
           <Route
             path="bill"
-            element={
-              <div className="text-sm text-pf-ink-dim">
-                Module Facture (À venir)
-              </div>
+            element={<BillPaymentView />
             }
           />
           <Route

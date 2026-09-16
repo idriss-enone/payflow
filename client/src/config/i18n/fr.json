@@ -52,6 +52,8 @@
     "kind_bill": "Facture —",
     "kind_topup": "Rechargé via",
     "kind_withdrawal": "Retiré vers",
+    "reference_label": "Référence de la facture",
+    "amount_label": "Montant à payer(FCFA)",
     "today": "Aujourd'hui",
     "yesterday": "Hier",
 
@@ -60,6 +62,9 @@
     "amount": "Montant (FCFA)",
     "note_optional": "Note (facultatif)",
     "btn_transfer": "Envoyer",
+    "bill_title": "Choisir le fournisseur",
+    "bill_subtitle": "Informations de paiement",
+    "btn_pay_bill": "Payer la facture",
     "insufficient_funds": "Solde insuffisant.",
     "error_recipient_not_found": "Aucun compte PayFlow n'est associé à ce numéro.",
     "error_self_transfer": "Vous ne pouvez pas envoyez de l'argent à votre numéro.",
