@@ -109,4 +109,20 @@ export function installWalletMock(mock) {
         return [200, { balance: user.balance, transaction: tx }];
     });
 
+    mock.onPost("/wallet/topup").reply(async (config) => {
+        await delay(WALLET_DELAY.TOPUP);
+        const { userId, amount, channelName } = JSON.parse(config.data);
+        const users = getUsers();
+        const user = users.find((u) => u.id === userId);
+        if (!user) return [404, { message: WALLET_ERRORS.GENERIC }];
+
+        // Pas de vérification de solde ici : recharger de l'argent ne peut pas
+        // échouer faute de fonds — contrairement à un envoi, une facture ou un retrait.
+        user.balance += amount;
+        saveUsers(users);
+
+        const tx = recordTransaction({ userId, kind: TX_KIND.TOPUP, amount, channelName, status: TX_STATUS.SUCCESS, });
+        return [200, { balance: user.balance, transaction: tx }];
+    })
+
 }

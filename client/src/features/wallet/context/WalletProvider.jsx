@@ -72,13 +72,36 @@ export function WalletProvider({ children }) {
 
   const payBill = useCallback(
     (billerName, reference, amount) =>
-      runAction(() => walletService.payBill({ userId: user.id, billerName, reference, amount })),
-    [runAction, user]
+      runAction(() =>
+        walletService.payBill({
+          userId: user.id,
+          billerName,
+          reference,
+          amount,
+        }),
+      ),
+    [runAction, user],
+  );
+
+  const topUp = useCallback(
+    (amount, channelName) =>
+      runAction(() =>
+        walletService.topUp({ userId: user.id, amount, channelName }),
+      ),
+    [runAction, user],
   );
 
   const value = useMemo(
-    () => ({ balance, transactions, isLoading, error, transfer,payBill }),
-    [balance, transactions, isLoading, error, transfer,payBill],
+    () => ({
+      balance,
+      transactions,
+      isLoading,
+      error,
+      transfer,
+      payBill,
+      topUp,
+    }),
+    [balance, transactions, isLoading, error, transfer, payBill, topUp],
   );
 
   return (

@@ -8,6 +8,7 @@ import RegisterView from "@/features/auth/views/RegisterView";
 
 import TransferView from "@/features/wallet/views/TransferView";
 import BillPaymentView from "@/features/wallet/views/BillPaymentView";
+import TopUpView from "@/features/wallet/views/TopUpView";
 
 import MainLayout from "@/layouts/MainLayout";
 import { WalletProvider } from "@/features/wallet/context/WalletProvider";
@@ -48,11 +49,7 @@ export default function AppRoutes() {
           />
           <Route
             path="recharge"
-            element={
-              <div className="text-sm text-pf-ink-dim">
-                Module Recharge (À venir)
-              </div>
-            }
+            element={<TopUpView/>}
           />
           <Route
             path="withdraw"
