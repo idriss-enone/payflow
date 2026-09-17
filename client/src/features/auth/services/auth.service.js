@@ -10,6 +10,7 @@ function extractErrorMessage(error) {
 const authService = {
     async login(phone, pin) {
         try {
+            console.log(phone)
             const { data } = await httpClient.post("/auth/login", { phone, pin });
             return data;
         } catch (error) {

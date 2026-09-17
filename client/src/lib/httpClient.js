@@ -5,7 +5,8 @@ import { installWalletMock } from "@/features/wallet/mocks/walletServerMock";
 import sessionService from "@/features/auth/services/session.service";
 
 const baseURL = import.meta.env.VITE_API_BASE_URL || "/api";
-const useRealBackend = import.meta.env.VITE_AUTH_BACKEND === "api";
+const useRealAuthBackend = import.meta.env.VITE_AUTH_BACKEND === "api";
+const useRealWalletBackend = import.meta.env.VITE_WALLET_BACKEND === "api";
 
 
 const AUTH_ENDPOINTS = ["/auth/login", "/auth/register"];
@@ -38,9 +39,9 @@ httpClient.interceptors.response.use(
     }
 );
 
-
-if (!useRealBackend) {
-    const mock = new MockAdapter(httpClient, { delayResponse: 500 });
-    installAuthMock(mock);
-    installWalletMock(mock);
+if (!useRealAuthBackend || !useRealWalletBackend) {
+    const mock = new MockAdapter(httpClient, { delayResponse: 500, onNoMatch: "passthrough" });
+    if (!useRealAuthBackend) installAuthMock(mock);
+    if (!useRealWalletBackend) installWalletMock(mock);
 }
+
