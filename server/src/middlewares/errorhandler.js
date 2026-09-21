@@ -1,9 +1,25 @@
-export function notFoundHandler(req, res) {
-    res.status(404).json({ message: "Route not found." });
-}
+import { ZodError } from "zod";
 
-// eslint-disable-next-line no-unused-vars
-export function errorHandler(err, req, res, next) {
-    console.error(err);
-    res.status(err.status || 500).json({ message: err.message || "Internal server error." });
-}
+export const notFoundHandler = (req, res) => {
+    res.status(404).json({ message: "Route not found" });
+};
+
+export const errorHandler = (error, req, res, next) => {
+    console.error(error);
+
+    if (error instanceof ZodError) {
+        return res.status(400).json({
+            message: "Validation failed",
+            errors: error.issues.map((issue) => ({ field: issue.path.join("."), message: issue.message })),
+        });
+    }
+
+    if (error.code === "ER_DUP_ENTRY") {
+        return res.status(409).json({ message: "Resource already exists" });
+    }
+
+    const statusCode = error.statusCode || 500;
+    res.status(statusCode).json({
+        message: statusCode === 500 ? "Internal server error" : error.message,
+    });
+};
