@@ -1,10 +1,15 @@
-DROP DATABASE IF EXISTS payflow;
+SET NAMES utf8;
+
+--DROP DATABASE IF EXISTS payflow;
 
 CREATE DATABASE IF NOT EXISTS payflow
   CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;
 
 USE payflow;
+
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS wallets;
 
 CREATE TABLE IF NOT EXISTS users (
   id CHAR(36) PRIMARY KEY,
@@ -23,6 +28,34 @@ CREATE TABLE IF NOT EXISTS wallets (
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT fk_wallets_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
   CONSTRAINT chk_wallet_balance CHECK (balance >= 0)
+);
+
+CREATE TABLE IF NOT EXISTS transactions (
+  id CHAR(36) PRIMARY KEY,
+  wallet_id CHAR(36) NOT NULL,
+  kind ENUM('TRANSFER', 'BILL_PAYMENT', 'TOP_UP') NOT NULL,
+  status ENUM('PENDING', 'PROCESSING', 'SUCCESS', 'FAILED', 'CANCELLED') NOT NULL DEFAULT 'SUCCESS',
+  amount DECIMAL(14,2) NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_transactions_wallet FOREIGN KEY (wallet_id) REFERENCES wallets(id) ON DELETE CASCADE,
+  INDEX idx_transactions_wallet_date (wallet_id, created_at DESC)
+);
+
+CREATE TABLE IF NOT EXISTS transfers (
+  id CHAR(36) PRIMARY KEY,
+  sender_wallet_id CHAR(36) NOT NULL,
+  recipient_wallet_id CHAR(36) NOT NULL,
+  debit_transaction_id CHAR(36) NOT NULL UNIQUE,
+  credit_transaction_id CHAR(36) NOT NULL UNIQUE,
+  amount DECIMAL(14,2) NOT NULL,
+  note VARCHAR(255) NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_transfers_sender FOREIGN KEY (sender_wallet_id) REFERENCES wallets(id) ON DELETE RESTRICT,
+  CONSTRAINT fk_transfers_recipient FOREIGN KEY (recipient_wallet_id) REFERENCES wallets(id) ON DELETE RESTRICT,
+  CONSTRAINT fk_transfers_debit_tx FOREIGN KEY (debit_transaction_id) REFERENCES transactions(id) ON DELETE RESTRICT,
+  CONSTRAINT fk_transfers_credit_tx FOREIGN KEY (credit_transaction_id) REFERENCES transactions(id) ON DELETE RESTRICT,
+  INDEX idx_transfers_sender_date (sender_wallet_id,created_at DESC),
+  INDEX idx_transfers_recipient_date (recipient_wallet_id,created_at DESC)
 );
 
 CREATE TABLE IF NOT EXISTS refresh_tokens (
