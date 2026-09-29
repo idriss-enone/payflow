@@ -5,95 +5,67 @@ import { useAuth } from "@/features/auth/hooks/useAuth";
 
 export function WalletProvider({ children }) {
   const { user } = useAuth();
-  const [balance, setBalance] = useState(user?.balance ?? 0);
+  const [balance, setBalance] = useState(0);
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
-  /*const refresh = useCallback(async () => {
-    if (!user) return;
-    setIsLoading(true);
-    setError("");
-    try {
-      const summary = await walletService.getSummary(user.id);
-      setBalance(summary.balance);
-      setTransactions(summary.transactions);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [user]);*/
-
   useEffect(() => {
     if (!user) return;
+    let active = true;
 
-    async function fetchData() {
+    async function refresh() {
       setIsLoading(true);
       setError("");
       try {
-        const fetchedTransactions = await walletService.getTransactions(
-          user.id,
-        );
-        setTransactions(fetchedTransactions);
+        const summary = await walletService.getSummary();
+        if (active) {
+          setBalance(summary.balance);
+          setTransactions(summary.transactions);
+        }
       } catch (err) {
-        setError(err.message);
+        if (active) setError(err.message);
       } finally {
-        setIsLoading(false);
+        if (active) setIsLoading(false);
       }
     }
 
-    fetchData();
+    refresh();
+    return () => {
+      active = false;
+    };
   }, [user]);
 
-  /*useEffect(() => {
-    refresh();
-  }, [refresh]);*/
-
-  const runAction = useCallback(async (serviceCall) => {
-    const result = await serviceCall();
-    setBalance(result.balance);
-    setTransactions((prev) => [result.transaction, ...prev].slice(0, 20));
-    return result.transaction;
+  const runAction = useCallback((serviceCall) => {
+    return serviceCall().then((result) => {
+      setBalance(result.balance);
+      setTransactions((prev) => [result.transaction, ...prev].slice(0, 20));
+      return result.transaction;
+    });
   }, []);
 
   const transfer = useCallback(
     (recipientPhone, amount, note) =>
-      runAction(() =>
-        walletService.transfer({
-          userId: user.id,
-          recipientPhone,
-          amount,
-          note,
-        }),
-      ),
-    [runAction, user],
+      runAction(() => walletService.transfer({ recipientPhone, amount, note })),
+    [runAction],
   );
 
   const payBill = useCallback(
     (billerName, reference, amount) =>
-      runAction(() =>
-        walletService.payBill({
-          userId: user.id,
-          billerName,
-          reference,
-          amount,
-        }),
-      ),
-    [runAction, user],
+      runAction(() => walletService.payBill({ billerName, reference, amount })),
+    [runAction],
   );
 
   const topUp = useCallback(
     (amount, channelName) =>
-      runAction(() =>
-        walletService.topUp({ userId: user.id, amount, channelName }),
-      ),
-    [runAction, user],
+      runAction(() => walletService.topUp({ amount, channelName })),
+    [runAction],
   );
 
-   const withdraw = useCallback(
-    (amount, channelName) => runAction(() => walletService.withdraw({ userId: user.id, amount, channelName })),
-    [runAction, user]
+  const withdraw = useCallback(
+    (amount, channelName) =>
+      runAction(() => walletService.withdraw({ amount, channelName })),
+    [runAction],
   );
 
   const value = useMemo(
@@ -105,9 +77,18 @@ export function WalletProvider({ children }) {
       transfer,
       payBill,
       topUp,
-      withdraw
+      withdraw,
     }),
-    [balance, transactions, isLoading, error, transfer, payBill, topUp,withdraw],
+    [
+      balance,
+      transactions,
+      isLoading,
+      error,
+      transfer,
+      payBill,
+      topUp,
+      withdraw,
+    ],
   );
 
   return (

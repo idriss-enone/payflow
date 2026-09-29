@@ -1,0 +1,17 @@
+export const TX_KIND = {
+  TOP_UP: "TOP_UP",
+  WITHDRAWAL: "WITHDRAWAL",
+  BILL_PAYMENT: "BILL_PAYMENT",
+  TRANSFER: "TRANSFER",
+};
+
+export const TX_DIRECTION = {
+  CREDIT: "CREDIT",
+  DEBIT: "DEBIT",
+};
+
+export const TX_STATUS = {
+  SUCCESS: "SUCCESS",
+  PENDING: "PENDING",
+  FAILED: "FAILED",
+};

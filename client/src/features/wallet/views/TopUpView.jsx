@@ -8,7 +8,6 @@ import { PlusCircle, Loader2 } from "lucide-react";
 export default function TopUpView() {
   const { t } = useTranslation();
   const {
-    user,
     channelId,
     setChannelId,
     amount,
@@ -27,7 +26,10 @@ export default function TopUpView() {
             {" "}
             {t("wallet.topup_title")}{" "}
           </h1>
-          <p className="text-xs text-pf-ink-faint"> {t("wallet.topup_description")} </p>
+          <p className="text-xs text-pf-ink-faint">
+            {" "}
+            {t("wallet.topup_description")}{" "}
+          </p>
         </div>
         <div className="pf-panel-body">
           <div
@@ -69,13 +71,6 @@ export default function TopUpView() {
             className="flex flex-col gap-4"
             noValidate
           >
-            <FormInput
-              id="phone"
-              label={t("auth.phone")}
-              value={user.phone}
-              disabled
-            />
-
             <FormInput
               id="amount"
               label={t("wallet.amount")}

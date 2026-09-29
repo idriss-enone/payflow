@@ -7,7 +7,7 @@ export function validateAmount(amount, { max } = {}) {
 
 export function validatePhoneRecipient(phone, ownPhone) {
     const digits = (phone || "").replace(/\D/g, "");
-    if (digits.length < 8) return "auth.validation_phone_short";
+    if (digits.length < 9) return "auth.validation_phone_short";
     if (ownPhone && digits === ownPhone.replace(/\D/g, "")) return "wallet.error_self_transfer";
     return "";
 }

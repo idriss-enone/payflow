@@ -49,7 +49,7 @@
     "no_activity": "Aucune activité pour le moment.",
     "kind_transfer_in": "Reçu de",
     "kind_transfer_out": "Envoyé à",
-    "kind_bill": "Facture —",
+    "kind_bill": "Facture ",
     "topup_title": "Recharger le portefeuille",
     "topup_description": "Choisissez un canal d'approvisionnement",
     "topup_channel_label": "Choisissez un canal de recharge",
@@ -64,7 +64,7 @@
     "btn_withdrawal": "Retirer",
 
     "reference_label": "Référence de la facture",
-    "amount_label": "Montant à payer(FCFA)",
+    "amount_label": "Montant (FCFA)",
     "today": "Aujourd'hui",
     "yesterday": "Hier",
 
@@ -85,7 +85,24 @@
 
     "status_success": "Réussie",
     "status_failed": "Echouée",
+
     "status_pending": "En attente",
-    "status_processing": "En cours"
+    "status_processing": "En cours",
+    "status_cancelled": "Annulée",
+
+    "history_title": "Historique des transactions",
+    "no_results": "Aucun résultat trouvé.",
+    "filter_all": "Toutes les transactions",
+    "filter_transfers": "Transferts uniquement",
+    "filter_bills": "Factures uniquement",
+    "filter_topups": "Recharges uniquement",
+    "filter_withdrawals": "Retraits uniquement",
+    "timestamp": "Horodatage",
+    "transaction_reference": "Réf transaction",
+    "operation_label": "Libellé opération",
+    "status_label": "Statut",
+    "filter_by_type": " Filtrer par type d'opération",
+    "filter_search": "Filtres de recherche ",
+    "results": "résultat"
   }
 }

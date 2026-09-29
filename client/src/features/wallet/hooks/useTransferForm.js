@@ -19,7 +19,7 @@ export function useTransferForm() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const errors = {
-            recipientPhone: validatePhoneRecipient(recipientPhone,user.phone),
+            recipientPhone: validatePhoneRecipient(recipientPhone, user.phone),
             amount: validateAmount(amount, { max: balance }),
         };
         setFieldErrors(errors);

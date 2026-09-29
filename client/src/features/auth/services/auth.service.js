@@ -1,16 +1,20 @@
 import { httpClient } from "@/lib/httpClient";
+import sessionService from "./session.service";
+import { resolveServerErrorKey } from "@/lib/serverErrorCodes";
 
 
 const FALLBACK_ERROR_KEY = "common.error_generic";
 
 function extractErrorMessage(error) {
-    return error.response?.data?.message || FALLBACK_ERROR_KEY;
+    const data = error.response?.data;
+    if (!data) return FALLBACK_ERROR_KEY;
+    const localKey = resolveServerErrorKey(data.code);
+    return localKey || data.message || FALLBACK_ERROR_KEY;
 }
 
 const authService = {
     async login(phone, pin) {
         try {
-            console.log(phone)
             const { data } = await httpClient.post("/auth/login", { phone, pin });
             return data;
         } catch (error) {
@@ -28,7 +32,13 @@ const authService = {
         }
     },
     async logout() {
-        await httpClient.post("/auth/logout");
+        const refreshToken = sessionService.getRefreshToken();
+        try {
+            await httpClient.post("/auth/logout", { refreshToken });
+        } catch {
+            // Non bloquant : la session locale doit être nettoyée même si la
+            // révocation côté serveur échoue (serveur injoignable, etc.).
+        }
         return true;
     }
 };

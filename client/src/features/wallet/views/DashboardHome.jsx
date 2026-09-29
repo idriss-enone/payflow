@@ -1,14 +1,17 @@
+import { useState } from "react";
 import { useTranslation } from "@/hooks/useTranslation";
 import { useWallet } from "../hooks/useWallet";
 import BalanceCard from "../components/BalanceCard";
 import QuickActions from "../components/QuickActions";
 import TransactionRow from "../components/TransactionRow";
-//import { groupByDate } from "../utils/format";
+import TransactionDetailModal from "../components/TransactionDetailModal";
+import { groupByDate } from "../utils/format";
 
 export default function DashboardHome() {
   const { t } = useTranslation();
   const { balance, transactions, isLoading } = useWallet();
-  //const grouped = groupByDate(transactions, t);
+  const grouped = groupByDate(transactions, t);
+  const [selectedTx, setSelectedTx] = useState(null);
 
   return (
     <div>
@@ -25,11 +28,22 @@ export default function DashboardHome() {
         ) : transactions.length === 0 ? (
           <p className="text-sm text-pf-ink-faint">{t("wallet.no_activity")}</p>
         ) : (
-          transactions.map((tx) => (
-            <TransactionRow key={tx.id} tx={tx} onSelect={() => {}} />
+          grouped.map((group) => (
+            <div key={group.label} className="mb-3 last:mb-0">
+              <div className="text-[11px] font-semibold text-pf-ink-faint mb-1">
+                {group.label}
+              </div>
+              {group.items.map((tx) => (
+                <TransactionRow key={tx.id} tx={tx} onSelect={setSelectedTx} />
+              ))}
+            </div>
           ))
         )}
       </div>
+      <TransactionDetailModal
+        tx={selectedTx}
+        onClose={() => setSelectedTx(null)}
+      />
     </div>
   );
 }

@@ -10,6 +10,7 @@ import TransferView from "@/features/wallet/views/TransferView";
 import BillPaymentView from "@/features/wallet/views/BillPaymentView";
 import TopUpView from "@/features/wallet/views/TopUpView";
 import WithdrawalView from "@/features/wallet/views/WithdrawalView";
+import HistoryView from "@/features/wallet/views/HistoryView";
 
 import MainLayout from "@/layouts/MainLayout";
 import { WalletProvider } from "@/features/wallet/context/WalletProvider";
@@ -28,42 +29,20 @@ export default function AppRoutes() {
       </Route>
 
       <Route element={<ProtectedRoute />}>
-        <Route path="/dashboard" element={
-          <WalletProvider>
+        <Route
+          path="/dashboard"
+          element={
+            <WalletProvider>
               <MainLayout />
             </WalletProvider>
-        }>
-          <Route
-            index
-            element={
-              <DashboardHome />
-            }
-          />
-          <Route
-            path="transfer"
-            element={<TransferView/>}
-          />
-          <Route
-            path="bill"
-            element={<BillPaymentView />
-            }
-          />
-          <Route
-            path="recharge"
-            element={<TopUpView/>}
-          />
-          <Route
-            path="withdraw"
-            element={<WithdrawalView />}
-          />
-          <Route
-            path="history"
-            element={
-              <div className="text-sm text-pf-ink-dim">
-                Module Historique (À venir)
-              </div>
-            }
-          />
+          }
+        >
+          <Route index element={<DashboardHome />} />
+          <Route path="transfer" element={<TransferView />} />
+          <Route path="bill" element={<BillPaymentView />} />
+          <Route path="recharge" element={<TopUpView />} />
+          <Route path="withdraw" element={<WithdrawalView />} />
+          <Route path="history" element={<HistoryView />} />
           <Route
             path="switch"
             element={

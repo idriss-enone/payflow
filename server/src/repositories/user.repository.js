@@ -1,29 +1,55 @@
 import { pool } from "../config/db.js";
 
 export const userRepository = {
-    async findUserByPhone(phone) {
-        const [rows] = await pool.query(
-            "SELECT id, name, phone, pin_hash, created_at FROM users WHERE phone = ? LIMIT 1",
+    async findUserByPhone(phone, connection = pool) {
+        const [rows] = await connection.query(
+            `
+            SELECT u.id, u.name, u.phone, u.pin_hash, w.balance
+            FROM users u
+            INNER JOIN wallets w ON w.user_id = u.id
+            WHERE u.phone = ?
+            LIMIT 1
+            `,
             [phone]
         );
         return rows[0] ?? null;
     },
-
-    async findUserById(id) {
-        const [rows] = await pool.query(
-            "SELECT id, name, phone, created_at FROM users WHERE id = ? LIMIT 1",
-            [id]
-        );
-        return rows[0] ?? null;
+    async existsByPhone(phone, connection = pool) {
+        const [rows] = await connection.query("SELECT id FROM users WHERE phone = ? LIMIT 1", [phone]);
+        return rows.length > 0;
     },
 
-    // connection = pool par défaut : appelable seul (hors transaction) ou
-    // avec la connexion d'une transaction en cours (voir registerUser).
+    async findUserById(id, connection = pool) {
+        const [rows] = await connection.query("SELECT id, name, phone FROM users WHERE id = ? LIMIT 1", [id]);
+        return rows[0] ?? null;
+    },
     async createUser({ id, name, phone, pinHash }, connection = pool) {
-        await connection.query(
-            "INSERT INTO users (id, name, phone, pin_hash) VALUES (?, ?, ?, ?)",
+
+        await connection.query(`INSERT INTO users (id,name,phone,pin_hash) VALUES (?, ?, ?, ?)`,
             [id, name, phone, pinHash]
         );
         return { id, name, phone };
     },
+    async findUserWithWalletByPhone(phone, connection = pool) {
+        const [rows] = await connection.query(
+            `
+      SELECT
+        u.id AS user_id,
+        u.name,
+        u.phone,
+        w.id AS wallet_id,
+        w.balance
+      FROM users u
+      INNER JOIN wallets w
+        ON w.user_id = u.id
+      WHERE u.phone = ?
+      LIMIT 1
+    `,
+            [phone]
+        );
+
+        return rows[0] ?? null;
+    },
+
+
 };

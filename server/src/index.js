@@ -4,6 +4,7 @@ import express from "express";
 import cors from "cors";
 
 import authRoutes from "./routes/auth.routes.js";
+import walletRoutes from "./routes/wallet.routes.js";
 import { notFoundHandler, errorHandler } from "./middlewares/errorHandler.js";
 import { pool } from "./config/db.js";
 
@@ -15,6 +16,7 @@ app.use(express.json());
 
 app.get("/api/health", (req, res) => res.json({ status: "ok" }));
 app.use("/api/auth", authRoutes);
+app.use("/api/wallet", walletRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);

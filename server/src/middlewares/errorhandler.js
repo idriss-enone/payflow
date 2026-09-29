@@ -10,7 +10,7 @@ export const errorHandler = (error, req, res, next) => {
     if (error instanceof ZodError) {
         return res.status(400).json({
             message: "Validation failed",
-            errors: error.issues.map((issue) => ({ field: issue.path.join("."), message: issue.message })),
+            errors: error.issues.map((issue) => ({ field: issue.path.join("."), message: issue.message })), //errors: error.flatten(),
         });
     }
 
@@ -21,5 +21,6 @@ export const errorHandler = (error, req, res, next) => {
     const statusCode = error.statusCode || 500;
     res.status(statusCode).json({
         message: statusCode === 500 ? "Internal server error" : error.message,
+        code: error.code || (statusCode === 500 ? "INTERNAL_ERROR" : "ERROR"),
     });
 };

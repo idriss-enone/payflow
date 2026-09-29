@@ -1,19 +1,5 @@
 import { z } from "zod";
-
-// Schéma de téléphone STRICTEMENT Camerounais
-const phoneSchema = z
-  .string()
-  .trim()
-  .transform((val) => val.replace(/[\s.-]/g, ""))
-  .refine(
-    (val) => {
-      const localRegex = /^[26]\d{8}$/;
-      const intlRegex = /^(?:\+237|00237)[26]\d{8}$/;
-      return localRegex.test(val) || intlRegex.test(val);
-    },
-    { message: "Invalid Cameroon phone number (e.g., 670000001 or +237670000001)." }
-  )
-  .transform((val) => val.replace(/^(?:\+237|00237)/, ""));
+import { phoneSchema } from "./phone.schema.js";
 
 const pinSchema = z.string().regex(/^\d{4}$/, "PIN must contain exactly 4 digits");
 

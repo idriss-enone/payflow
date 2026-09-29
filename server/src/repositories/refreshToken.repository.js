@@ -10,10 +10,13 @@ export const refreshTokenRepository = {
 
     async findActiveRefreshToken(id) {
         const [rows] = await pool.query(
-            `SELECT id, user_id, token_hash, expires_at, revoked_at
-       FROM refresh_tokens
-       WHERE id = ? AND revoked_at IS NULL AND expires_at > NOW()
-       LIMIT 1`,
+            `
+            SELECT id, user_id, token_hash, expires_at, revoked_at
+            FROM refresh_tokens
+            WHERE id = ? 
+                AND revoked_at IS NULL 
+                AND expires_at > NOW()
+            LIMIT 1`,
             [id]
         );
         return rows[0] ?? null;

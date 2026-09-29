@@ -1,22 +1,21 @@
 import { pool } from "../config/db.js";
 
+export const transactionRepository = {
+  async createTransaction({ id, walletId, transferId = null, kind, direction, amount, reference }, connection = pool) {
+    await connection.query(
+      `INSERT INTO transactions (id, wallet_id, transfer_id, kind, direction, amount, reference)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      [id, walletId, transferId, kind, direction, amount, reference]
+    );
+    return { id, walletId, transferId, kind, direction, amount, reference };
+  },
 
-export const withTransaction = async (callback) => {
-  const connection = await pool.getConnection();
-
-  try {
-    await connection.beginTransaction();
-
-    const result = await callback(connection);
-
-    await connection.commit();
-
-    return result;
-  } catch (error) {
-    await connection.rollback();
-
-    throw error;
-  } finally {
-    connection.release();
-  }
+  async findByWalletId(walletId, connection = pool) {
+    const [rows] = await connection.query(
+      `SELECT id, wallet_id, transfer_id, kind, direction, status, amount, reference, created_at
+       FROM transactions WHERE wallet_id = ? ORDER BY created_at DESC`,
+      [walletId]
+    );
+    return rows;
+  },
 };

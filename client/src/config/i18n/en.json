@@ -49,7 +49,7 @@
     "no_activity": "No activity yet.",
     "kind_transfer_in": "Received from",
     "kind_transfer_out": "Sent to",
-    "kind_bill": "Bill —",
+    "kind_bill": "Bill ",
 
     "topup_title": "Top up your wallet",
     "topup_subtitle": "Top-up information",
@@ -63,7 +63,7 @@
     "btn_withdrawal": "Withdraw",
 
     "reference_label": "Invoice reference",
-    "amount_label": "Amount to pay (FCFA)",
+    "amount_label": "Amount (FCFA)",
     "today": "Today",
     "yesterday": "Yesterday",
 
@@ -84,7 +84,24 @@
 
     "status_success": "Success",
     "status_failed": "Failed",
+
     "status_pending": "Pending",
-    "status_processing": "Processing"
+    "status_processing": "Processing",
+    "status_cancelled": "Cancelled",
+
+    "history_title": "Transaction History",
+    "no_results": "No results found.",
+    "filter_all": "All transactions",
+    "filter_transfers": "Transfers only",
+    "filter_bills": "Bills only",
+    "filter_topups": "Top-ups only",
+    "filter_withdrawals": "Withdrawals only",
+    "timestamp": "Timestamp",
+    "transaction_reference": "Transaction reference",
+    "operation_label": "Operation label",
+    "status_label": "Status",
+    "filter_by_type": " Filter by operation type",
+    "filter_search": "Search filters ",
+    "results": "result"
   }
 }

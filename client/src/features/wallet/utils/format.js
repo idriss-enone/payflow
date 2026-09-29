@@ -9,15 +9,14 @@ export function formatTime(timestamp) {
 export function formatDateTime(timestamp) {
   return new Date(timestamp).toLocaleString("fr-FR", {
     day: "numeric",
-    month: "short",
+    month: "2-digit",
     year: "numeric",
     hour: "2-digit",
     minute: "2-digit",
   });
 }
 
-// Regroupe une liste de transactions (déjà triée, plus récente en premier)
-// en sections "Aujourd'hui" / "Hier" / date, pour l'affichage en historique.
+
 export function groupByDate(transactions, t) {
   const groups = [];
   let lastLabel = null;
@@ -25,12 +24,13 @@ export function groupByDate(transactions, t) {
   const yesterday = new Date(now);
   yesterday.setDate(now.getDate() - 1);
 
+
   for (const tx of transactions) {
     const date = new Date(tx.createdAt);
     let label;
     if (date.toDateString() === now.toDateString()) label = t("wallet.today");
     else if (date.toDateString() === yesterday.toDateString()) label = t("wallet.yesterday");
-    else label = date.toLocaleDateString("fr-FR", { day: "numeric", month: "long" });
+    else label = date.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric", });
 
     if (label !== lastLabel) {
       groups.push({ label, items: [] });
